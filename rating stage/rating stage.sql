@@ -146,18 +146,24 @@ FROM (
 
 /*----------------------------Task 6----------------------------*/
 SELECT CAST(trip_no AS varbinary(50))
-FROM Tripl;
+FROM Trip; num
 
-WITH number AS (
-	SELECT trip_no, trip_no / 2 digit, CAST(trip_no % 2 AS VARCHAR) string
-	FROM Trip
-	UNION ALL
-	SELECT trip_no, digit / 2, CAST(digit % 2 AS varchar)
-	FROM number
-	WHERE trip_no > 1
-)
-SELECT string
-FROM number
 
 select * from dbo.syscolumns WHERE id = object_id(N'Trip') AND name='trip_no' 
+
+
+DECLARE @num INT
+DECLARE @bin VARCHAR(MAX)
+
+SET @num = 91
+SET @bin=''
+
+WHILE @num > 0
+BEGIN
+    SET @bin = cast((@num & 1) AS VARCHAR(10)) + @bin
+    SET @num = @num / 2
+END
+
+SELECT @bin
+
 
